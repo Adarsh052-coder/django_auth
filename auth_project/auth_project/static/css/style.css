@@ -1,0 +1,448 @@
+/* ============================================================
+   GLASSMORPHISM UI — Enhanced with Animations & Depth
+   ============================================================ */
+
+/* ── 1. Reset & Base ── */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+
+    /* Deep multi-stop gradient for real depth */
+    background: radial-gradient(ellipse at 30% 40%, #0a2fff 0%, #003a8c 55%, #001966 100%);
+}
+
+/* ── 2. Layered Animated Background Blobs ── */
+/* Blob layer sits between background and content */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+
+    /* Extra ambient light overlay */
+    background:
+        radial-gradient(circle at 80% 10%, rgba(0,198,255,0.25) 0%, transparent 45%),
+        radial-gradient(circle at 15% 85%, rgba(106,17,203,0.25) 0%, transparent 45%);
+    pointer-events: none;
+}
+
+.blob-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+}
+
+/* Blob 1 — Top-right cyan */
+.blob-1 {
+    width: 420px;
+    height: 420px;
+    top: -10%;
+    right: -6%;
+    background: linear-gradient(45deg, #00c6ff, #0072ff);
+    opacity: 0.70;
+    animation: floatA 15s infinite alternate ease-in-out;
+}
+
+/* Blob 2 — Bottom-left blue-teal */
+.blob-2 {
+    width: 520px;
+    height: 520px;
+    bottom: -16%;
+    left: -10%;
+    background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+    opacity: 0.60;
+    animation: floatB 20s infinite alternate ease-in-out;
+    animation-delay: -2s;
+}
+
+/* Blob 3 — Mid-left violet */
+.blob-3 {
+    width: 260px;
+    height: 260px;
+    top: 35%;
+    left: 5%;
+    background: linear-gradient(200deg, #6a11cb, #2575fc);
+    opacity: 0.40;
+    animation: floatC 12s infinite alternate ease-in-out;
+    animation-delay: -5s;
+}
+
+/* Blob 4 — Lower-right ice blue */
+.blob-4 {
+    width: 200px;
+    height: 200px;
+    bottom: 18%;
+    right: 6%;
+    background: linear-gradient(90deg, #00f2fe, #4facfe);
+    opacity: 0.35;
+    animation: floatA 17s infinite alternate-reverse ease-in-out;
+    animation-delay: -8s;
+}
+
+/* ── 3. Floating Orbs (small glowing particles) ── */
+.orb {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.orb-1 { width:10px; height:10px; background:rgba(255,255,255,0.65); top:22%; left:20%; animation: orbFloat 4s ease-in-out infinite; }
+.orb-2 { width: 6px; height: 6px;  background:rgba(255,255,255,0.50); top:55%; right:25%; animation: orbFloat 5.5s ease-in-out infinite 1s; }
+.orb-3 { width: 8px; height: 8px;  background:rgba(255,255,255,0.55); bottom:30%; left:40%; animation: orbFloat 3.8s ease-in-out infinite 0.5s; }
+.orb-4 { width: 5px; height: 5px;  background:rgba(180,220,255,0.60); top:15%; right:38%; animation: orbFloat 6s ease-in-out infinite 2s; }
+.orb-5 { width: 7px; height: 7px;  background:rgba(255,255,255,0.40); bottom:45%; right:15%; animation: orbFloat 4.5s ease-in-out infinite 3s; }
+
+/* ── 4. Animation Keyframes ── */
+@keyframes floatA {
+    0%   { transform: translate(0, 0)    rotate(0deg)  scale(1);   }
+    33%  { transform: translate(50px, 80px) rotate(10deg) scale(1.1); }
+    66%  { transform: translate(-30px, 40px) rotate(-5deg) scale(0.9); }
+    100% { transform: translate(0, 0)    rotate(0deg)  scale(1);   }
+}
+
+@keyframes floatB {
+    0%   { transform: translate(0, 0)     rotate(0deg)  scale(1);    }
+    40%  { transform: translate(-60px, 50px) rotate(8deg)  scale(1.15); }
+    80%  { transform: translate(40px, -30px) rotate(-6deg) scale(0.88); }
+    100% { transform: translate(0, 0)     rotate(0deg)  scale(1);    }
+}
+
+@keyframes floatC {
+    0%   { transform: translate(0, 0)     scale(1);    }
+    50%  { transform: translate(30px, -40px) scale(1.1);  }
+    100% { transform: translate(0, 0)     scale(1);    }
+}
+
+@keyframes orbFloat {
+    0%,  100% { transform: translateY(0);    opacity: 0.5; }
+    50%        { transform: translateY(-18px); opacity: 0.9; }
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes shimmerBtn {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+}
+
+@keyframes pulseRing {
+    0%   { box-shadow: 0 0 0 0   rgba(255,255,255,0.25); }
+    70%  { box-shadow: 0 0 0 10px rgba(255,255,255,0);   }
+    100% { box-shadow: 0 0 0 0   rgba(255,255,255,0);    }
+}
+
+@keyframes borderGlow {
+    0%, 100% { border-color: rgba(255,255,255,0.20); }
+    50%       { border-color: rgba(255,255,255,0.45); }
+}
+
+/* ── 5. Glass Container ── */
+.container {
+    position: relative;
+    z-index: 10;
+    width: 400px;
+
+    background: rgba(255, 255, 255, 0.11);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 28px;
+    padding: 44px 40px;
+
+    /* Layered shadows for real 3-D lift */
+    box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.30),
+        0  8px 20px rgba(0, 0, 0, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.10);
+
+    text-align: center;
+    color: white;
+
+    animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: borderGlow 4s ease-in-out infinite;
+}
+
+/* Optional logo / icon area at the top of a card */
+.container-logo {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 8px 24px rgba(79, 172, 254, 0.45);
+    animation: pulseRing 2.5s ease-in-out infinite;
+}
+
+/* ── 6. Typography ── */
+h2 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    margin-bottom: 6px;
+    color: #ffffff;
+}
+
+.subtitle {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 28px;
+}
+
+/* ── 7. Input Fields ── */
+.field-group {
+    position: relative;
+    margin: 10px 0;
+}
+
+.field-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+    opacity: 0.55;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.field-group:focus-within .field-icon {
+    opacity: 0.9;
+}
+
+input {
+    width: 100%;
+    padding: 13px 14px 13px 40px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.20);
+    background: rgba(255, 255, 255, 0.13);
+
+    color: white;
+    font-size: 14px;
+    font-family: inherit;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.40);
+}
+
+input:hover {
+    background: rgba(255, 255, 255, 0.17);
+    border-color: rgba(255, 255, 255, 0.30);
+}
+
+input:focus {
+    background: rgba(255, 255, 255, 0.20);
+    border-color: rgba(255, 255, 255, 0.50);
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.10);
+}
+
+/* ── 8. Buttons ── */
+button,
+.btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    margin-top: 22px;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: inherit;
+    letter-spacing: 0.3px;
+    color: white;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    /* Shimmering gradient button */
+    background: linear-gradient(135deg, #1a56db 0%, #0ea5e9 50%, #1a56db 100%);
+    background-size: 200% auto;
+    animation: shimmerBtn 3s linear infinite;
+
+    box-shadow: 0 6px 20px rgba(0, 90, 255, 0.35);
+}
+
+button:hover,
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(0, 90, 255, 0.50);
+}
+
+button:active,
+.btn:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 4px 12px rgba(0, 90, 255, 0.30);
+}
+
+/* Secondary / outline button */
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    animation: none;
+    box-shadow: none;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.18);
+    box-shadow: none;
+}
+
+/* ── 9. Divider ── */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0 16px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.35);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* ── 10. Social / Icon Buttons ── */
+.social-row {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-social {
+    flex: 1;
+    padding: 10px;
+    border-radius: 11px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.09);
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    margin-top: 0;
+    animation: none;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-social:hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.30);
+    transform: translateY(-1px);
+    box-shadow: none;
+}
+
+/* ── 11. Links ── */
+a {
+    color: rgba(160, 210, 255, 0.9);
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+/* ── 12. Card footer / helper text ── */
+.card-footer {
+    margin-top: 22px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.50);
+}
+
+/* ── 13. Alert / Error / Success Messages ── */
+.alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 11px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    margin-bottom: 14px;
+    text-align: left;
+    animation: fadeUp 0.3s ease both;
+}
+
+.alert-error {
+    background: rgba(255, 77, 77, 0.18);
+    border: 1px solid rgba(255, 100, 100, 0.35);
+    color: #ffc5c5;
+}
+
+.alert-success {
+    background: rgba(0, 220, 130, 0.15);
+    border: 1px solid rgba(0, 220, 130, 0.30);
+    color: #b0f5d8;
+}
+
+.alert-info {
+    background: rgba(100, 180, 255, 0.15);
+    border: 1px solid rgba(100, 180, 255, 0.30);
+    color: #b8d9ff;
+}
+
+/* ── 14. Utility: Visually Hidden (accessibility) ── */
+.sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ── 15. Responsive ── */
+@media (max-width: 480px) {
+    .container {
+        width: calc(100vw - 32px);
+        padding: 32px 24px;
+        border-radius: 22px;
+    }
+
+    .blob-1 { width: 260px; height: 260px; }
+    .blob-2 { width: 320px; height: 320px; }
+    .blob-3 { display: none; }
+    .blob-4 { display: none; }
+}
